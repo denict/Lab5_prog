@@ -5,17 +5,26 @@ import entity.Organization;
 import managers.CollectionManager;
 import utility.ConsoleOutput;
 
+/**
+ * Команда "filter_by_annual_turnover".
+ * Описание команды: вывести элементы, значение поля annualTurnover которых равно заданному.
+ */
 public class FilterByAnnualTurnover extends Command {
 
     private CollectionManager collectionManager;
     private ConsoleOutput consoleOutput;
 
     public FilterByAnnualTurnover(CollectionManager collectionManager, ConsoleOutput consoleOutput) {
-        super("filter_by_annual_turnover", "Вывести элементы, значение поля annualTurnover которых равно заданному", 1);
+        super("filter_by_annual_turnover", "вывести элементы, значение поля annualTurnover которых равно заданному", 1, "\"annualTurnover\"");
         this.collectionManager = collectionManager;
         this.consoleOutput = consoleOutput;
     }
 
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     @Override
     public void execute(String[] args) {
 //        if (args.length != 1) {

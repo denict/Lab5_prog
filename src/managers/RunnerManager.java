@@ -1,8 +1,5 @@
 package managers;
-
 import command.Command;
-import utility.ConsoleInput;
-import utility.ConsoleOutput;
 import utility.InputHandler;
 import utility.OutputHandler;
 
@@ -22,8 +19,12 @@ public class RunnerManager implements Runnable{
         this.dumpManager = dumpManager;
     }
 
-    /*
-     * Проверка корректности введённой команды и ее запуск
+    /**
+     * Проверяет корректность введенной команды и выполняет ее.
+     *
+     * @param queryParts     Разделенная на части введенная строка команды.
+     * @param commandManager Менеджер команд.
+     * @param consoleOutput  Обработчик вывода для отображения сообщений.
      */
     public static void runCommand(String[] queryParts, CommandManager commandManager, OutputHandler consoleOutput) {
         String qCommandName = queryParts[0].toLowerCase();
@@ -41,7 +42,7 @@ public class RunnerManager implements Runnable{
         try {
             Command command = commandManager.getCommands().get(qCommandName);
             if (command.getArgsCount() != qCommandArgs.length) {
-                consoleOutput.printError("Команда " + qCommandName + " принимает " + command.getArgsCount() + " аргумент(а)");
+                consoleOutput.printError("Команда " + qCommandName + " принимает " + command.getArgsCount() + " аргумент(а)." + " Правильное использование: " + qCommandName + " " + command.getUsageArg());
                 return;
             }
             command.execute(qCommandArgs);
@@ -54,8 +55,9 @@ public class RunnerManager implements Runnable{
     }
 
 
-    /*
-     * Запуск программы
+    /**
+     * Запускает главный цикл программы, обрабатывая пользовательский ввод и выполняя команды.
+     * Включает обработку выхода из программы, добавляя {@code ShutdownHook}, который выполняется при завершении работы.
      */
     @Override
     public void run() {
@@ -85,5 +87,8 @@ public class RunnerManager implements Runnable{
         }
     }
 
-
+    @Override
+    public int hashCode() {
+            return super.hashCode();
+    }
 }

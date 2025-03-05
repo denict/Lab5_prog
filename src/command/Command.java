@@ -1,28 +1,85 @@
 package command;
 
-/*
- * Абстрактный класс для всех команд, их имена и описание
+/**
+ * Абстрактный класс, представляющий команду.
+ * <p>
+ * Каждая команда имеет имя, описание и количество аргументов.
+ * </p>
  */
 public abstract class Command implements CommandInterface {
 
+    /**
+     * Название команды.
+     */
     private final String name;
-    private final String description;
-    private final int argsCount;
 
-    public Command(String name, String description, int argsCount) {
+    /**
+     * Описание команды.
+     */
+    private final String description;
+
+    /**
+     * Количество аргументов, которые принимает команда.
+     */
+    private final int argsCount;
+    private final String usageArg;
+
+    /**
+     * Создаёт команду с указанным именем, описанием и количеством аргументов.
+     *
+     * @param name        название команды
+     * @param description описание команды
+     * @param argsCount   количество аргументов, которые принимает команда
+     */
+    public Command(String name, String description, int argsCount, String usageArg) {
         this.name = name;
         this.description = description;
         this.argsCount = argsCount;
-
+        this.usageArg = usageArg;
     }
 
+    /**
+     * Возвращает название команды.
+     *
+     * @return название команды
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * Возвращает описание команды.
+     *
+     * @return описание команды
+     */
     public String getDescription() {
         return description;
     }
-    public int getArgsCount() {return argsCount;}
+
+    /**
+     * Возвращает количество аргументов, которые принимает команда.
+     *
+     * @return количество аргументов
+     */
+    public int getArgsCount() {
+        return argsCount;
+    }
+
+    /**
+     * Возвращает название параметров, которые принимает команда.
+     *
+     * @return количество аргументов
+     */
+    public String getUsageArg() {
+        return usageArg;
+    }
+
+    /**
+     * Проверяет равенство двух команд по их названию и описанию.
+     *
+     * @param obj объект для сравнения
+     * @return {@code true}, если команды равны, иначе {@code false}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -31,16 +88,23 @@ public abstract class Command implements CommandInterface {
         return name.equals(command.name) && description.equals(command.description);
     }
 
-
+    /**
+     * Возвращает хеш-код команды, основанный на её названии и описании.
+     *
+     * @return хеш-код команды
+     */
     @Override
     public int hashCode() {
         return name.hashCode() + description.hashCode();
     }
 
+    /**
+     * Возвращает строковое представление команды в формате ": имя | описание".
+     *
+     * @return строковое представление команды
+     */
     @Override
     public String toString() {
-//        return "Команда " + name + ": " + description;
         return String.format(": %-1s | %s", name, description);
     }
-
 }

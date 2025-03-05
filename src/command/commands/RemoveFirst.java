@@ -4,16 +4,25 @@ import command.Command;
 import managers.CollectionManager;
 import utility.ConsoleOutput;
 
+/**
+ * Команда "remove_first".
+ * Описание команды: удалить первый элемент из коллекции
+ */
 public class RemoveFirst extends Command {
     private final CollectionManager collectionManager;
     private final ConsoleOutput consoleOutput;
 
     public RemoveFirst(CollectionManager collectionManager, ConsoleOutput consoleOutput) {
-        super("remove_first", "удалить первый элемент из коллекции", 0);
+        super("remove_first", "удалить первый элемент из коллекции", 0, "");
         this.collectionManager = collectionManager;
         this.consoleOutput = consoleOutput;
     }
 
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     @Override
     public void execute(String[] args) {
 //        if (args.length > 0) {

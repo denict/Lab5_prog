@@ -10,7 +10,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
-
+/**
+ * Класс, представляющий организацию.
+ * Реализует интерфейсы Serializable и Comparable для поддержки сериализации
+ * и сравнения по годовому доходу.
+ */
 public class Organization implements Serializable, Comparable<Organization>{
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -29,6 +33,7 @@ public class Organization implements Serializable, Comparable<Organization>{
             this.type = type;
             this.officialAddress = officialAddress;
     }
+
     public Organization(Integer id, String name, Coordinates coordinates, Date creationDate, Double annualTurnover, OrganizationType type, Address officialAddress) {
         this.id = id;
         this.name = name;
@@ -38,8 +43,12 @@ public class Organization implements Serializable, Comparable<Organization>{
         this.type = type;
         this.officialAddress = officialAddress;
     }
-    
-    
+
+
+    /**
+     * Возвращает строковое представление организации.
+     * @return Строка с данными об организации.
+     */
     @Override
     public String toString() {
         return "Organization:\n" + 
@@ -53,6 +62,10 @@ public class Organization implements Serializable, Comparable<Organization>{
 
     }
 
+    /**
+     * Проверяет корректность значений полей организации.
+     * @return true, если организация корректна, иначе false.
+     */
     public boolean validate() {
         if (id == null || id <= 0) return false;
         if (name == null || name.isEmpty()) return false;
@@ -62,12 +75,17 @@ public class Organization implements Serializable, Comparable<Organization>{
         return true;
     }
     /**
-     * Сравнение по годовому доходу
+     * Сравнивает организации по годовому доходу.
+     * @param organization Другая организация.
+     * @return Положительное число, если текущий объект больше,
+     *         отрицательное, если меньше, и 0, если равны.
      */
     @Override
     public int compareTo(Organization organization) {
         return (int) (this.annualTurnover.compareTo(organization.annualTurnover));
     }
+
+    // Геттеры и сеттеры
 
     public Integer getId(){
         return id;
@@ -132,7 +150,7 @@ public class Organization implements Serializable, Comparable<Organization>{
             }
 
             name = a[1];
-            if (name == null || name.isEmpty()) {
+            if (name == null || name.isBlank()) {
                 consoleOutput.printError("\"name\" не может быть пустым или null.");
                 return null;
             }
@@ -179,11 +197,15 @@ public class Organization implements Serializable, Comparable<Organization>{
         return null;
     }
 
+    /**
+     * Преобразует объект Organization в массив строк.
+     * @param org Организация для преобразования.
+     * @return Массив строк, содержащий данные об организации.
+     */
     public static String[] toArray(Organization org) {
         ArrayList<String> list = new ArrayList<>();
         list.add(org.getId().toString());
         list.add(org.getName());
-        // list.add(org.getCoordinates().toString()); // если через toString()
         list.add(Long.toString(org.getCoordinates().getX()));
         list.add(Long.toString(org.getCoordinates().getY()));
         list.add(org.getCreationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(DateTimeFormatter.ISO_DATE_TIME));
@@ -191,15 +213,8 @@ public class Organization implements Serializable, Comparable<Organization>{
         list.add(org.getOrganizationType() == null ? "null" : org.getOrganizationType().toString());
         list.add(org.getOfficialAddress().getStreet());
         list.add(org.getOfficialAddress().getZipCode());
-        // list.add(org.getOfficialAddress() == null ? "null" : org.getOfficialAddress().toString());
         return list.toArray(new String[0]);
     }
-
-
-
-
-
-
 
 
 }

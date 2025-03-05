@@ -10,11 +10,26 @@ import utility.OutputHandler;
 import java.util.function.Predicate;
 
 
+/**
+ * Класс для построения объекта {@link Organization} на основе пользовательского ввода.
+ */
 public class OrganizationBuilder extends Builder<Organization> {
+
+    /**
+     * Конструктор для {@code OrganizationBuilder}.
+     *
+     * @param consoleInput  обработчик ввода.
+     * @param consoleOutput обработчик вывода.
+     */
     public OrganizationBuilder(InputHandler consoleInput, OutputHandler consoleOutput) {
         super(consoleInput, consoleOutput);
     }
 
+    /**
+     * Создает новый объект {@link Organization}, запрашивая у пользователя данные.
+     *
+     * @return новый объект {@link Organization}.
+     */
     @Override
     public Organization build() {
 

@@ -9,7 +9,13 @@ import command.Command;
  */
 public class CommandManager {
 
+    /**
+     * Словарь команд, упорядоченный по имени команды.
+     */
     private final HashMap<String, Command> commands = new LinkedHashMap<>(); // Linked HashMap сохраняет порядок добавления команд
+    /**
+     * История команд, выполняемых в системе.
+     */
     private final List<Command> commandHistory = new ArrayList<>();
 
     /**

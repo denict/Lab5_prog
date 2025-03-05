@@ -7,6 +7,10 @@ import managers.CollectionManager;
 import utility.ConsoleInput;
 import utility.ConsoleOutput;
 
+/**
+ * Команда "update_by_id".
+ * Описание команды: обновить значение элемента коллекции, id которого равен заданному
+ */
 public class UpdateByID extends Command {
     private CollectionManager collectionManager;
     private ConsoleInput consoleInput;
@@ -14,12 +18,17 @@ public class UpdateByID extends Command {
 
 
     public UpdateByID(CollectionManager collectionManager, ConsoleInput consoleInput, ConsoleOutput consoleOutput) {
-        super("update_by_id", " обновить значение элемента коллекции, id которого равен заданному", 1);
+        super("update_by_id", "обновить значение элемента коллекции, id которого равен заданному", 1, "\"id\"");
         this.collectionManager = collectionManager;
         this.consoleInput = consoleInput;
         this.consoleOutput = consoleOutput;
     }
 
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     @Override
     public void execute(String[] args) {
 //        if (args.length != 1) {

@@ -5,16 +5,25 @@ import entity.Organization;
 import managers.CollectionManager;
 import utility.ConsoleOutput;
 
+/**
+ * Команда "show".
+ * Описание команды: выводит в стандартный поток вывода все элементы коллекции в строковом представлении
+ */
 public class Show extends Command {
     private CollectionManager collectionManager;
     private ConsoleOutput consoleOutput;
 
     public Show(CollectionManager collectionManager, ConsoleOutput consoleOutput) {
-        super("show", "Выводит в стандартный поток вывода все элементы коллекции в строковом представлении", 0);
+        super("show", "выводит в стандартный поток вывода все элементы коллекции в строковом представлении", 0, "");
         this.collectionManager = collectionManager;
         this.consoleOutput = consoleOutput;
     }
 
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     @Override
     public void execute(String[] args) {
 //        if (args.length > 0) {

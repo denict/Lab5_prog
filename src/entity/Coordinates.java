@@ -1,7 +1,8 @@
 package entity;
 
 /**
- * Модель координат
+ * Модель координат.
+ * Координаты представлены двумя значениями: x и y.
  */
 public class Coordinates{
     private long x;
@@ -11,7 +12,7 @@ public class Coordinates{
         this.x = x;
         this.y = y;
     }
-
+    // Геттеры и сеттеры
     public long getX() {
         return x;
     }
@@ -26,7 +27,11 @@ public class Coordinates{
         this.y = y;
     }
 
-
+    /**
+     * Возвращает строковое представление объекта координат.
+     *
+     * @return строка в формате "x = [значение x]; y = [значение y]"
+     */
     @Override
     public String toString() {
         return "x = "+x+"; "+ "y = "+y;

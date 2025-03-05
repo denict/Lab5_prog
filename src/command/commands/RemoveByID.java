@@ -4,15 +4,25 @@ import command.Command;
 import managers.CollectionManager;
 import utility.ConsoleOutput;
 
+/**
+ * Команда "remove_by_id".
+ * Описание команды: удалить элемент из коллекции по его id
+ */
 public class RemoveByID extends Command {
     private CollectionManager collectionManager;
     private ConsoleOutput consoleOutput;
 
     public RemoveByID(CollectionManager collectionManager, ConsoleOutput consoleOutput) {
-        super("remove_by_id", " удалить элемент из коллекции по его id", 1);
+        super("remove_by_id", "удалить элемент из коллекции по его id", 1, "\"id\"");
         this.collectionManager = collectionManager;
         this.consoleOutput = consoleOutput;
     }
+
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     @Override
     public void execute(String[] args) {
 //        if (args.length != 1) {

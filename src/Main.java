@@ -1,10 +1,7 @@
 import command.commands.*;
-import entity.Organization;
-import entity.builders.OrganizationBuilder;
 import managers.*;
 import utility.ConsoleInput;
 import utility.ConsoleOutput;
-
 import java.io.File;
 
 
@@ -22,6 +19,7 @@ public class Main {
             return;
         }
         DumpManager dumpManager = new DumpManager(new File(filePath), consoleOutput);
+        if (!dumpManager.validate()) return;
         CollectionManager collectionManager = new CollectionManager(dumpManager);
         dumpManager.readCollection(collectionManager);
         RunnerScriptManager runnerScriptManager = new RunnerScriptManager();
@@ -34,7 +32,7 @@ public class Main {
             register(new RemoveByID(collectionManager, consoleOutput));
             register(new Clear(collectionManager, consoleOutput));
             register(new Save(collectionManager, dumpManager, consoleOutput));
-            register(new ExecuteScript(this, consoleInput, consoleOutput, runnerScriptManager));
+            register(new ExecuteScript(this, consoleOutput, runnerScriptManager));
             register(new Exit(consoleOutput));
             register(new RemoveFirst(collectionManager, consoleOutput));
             register(new AddIfMin(collectionManager, consoleInput, consoleOutput));

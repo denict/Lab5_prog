@@ -8,25 +8,43 @@ import java.util.ArrayDeque;
 import java.util.HashSet;
 
 /**
- *  Менеджер для корректного контроля выполнения исполняемых скриптов
+ * Менеджер для контроля выполнения исполняемых скриптов.
+ * <p>
+ * Этот класс отслеживает файлы, которые были запущены в рамках выполнения скрипта, предотвращая рекурсивные вызовы.
+ * Также предоставляет методы для чтения ввода из файла.
+ * </p>
  */
 public class RunnerScriptManager implements InputHandler {
-    // хранение запущенных на момент исполнения файлов
+    /**
+     * Набор запущенных файлов, используемый для предотвращения рекурсивного запуска.
+     */
     private static final HashSet<String> setFiles = new HashSet<>();
+
+    /**
+     * Очередь потоков чтения для управления последовательным выполнением скриптов.
+     */
     private static final ArrayDeque<BufferedReader> readers = new ArrayDeque<>();
+
+    /**
+     * Текущий поток чтения.
+     */
     private static BufferedReader br;
 
     /**
-     * Метод для проверки, был ли запущен файл повторно (рекурсивно)
-     * @param fileName проверяемый файл
-     * @return был или не был запущен
+     * Проверяет, был ли указанный файл уже запущен.
+     *
+     * @param fileName Имя проверяемого файла.
+     * @return {@code true}, если файл уже выполняется, иначе {@code false}.
      */
-    public static boolean checkIfFileInStack (String fileName) {
+    public static boolean checkIfFileInStack(String fileName) {
         return setFiles.contains(fileName);
     }
+
     /**
-     * Добавляет файл в список запущенных
-     * @param fileName файл
+     * Добавляет файл в список запущенных и открывает поток для чтения его содержимого.
+     *
+     * @param fileName Имя файла, который необходимо добавить.
+     * @throws FileNotFoundException Если файл не найден.
      */
     public static void addFile(String fileName) throws FileNotFoundException {
         setFiles.add(fileName);
@@ -34,16 +52,18 @@ public class RunnerScriptManager implements InputHandler {
     }
 
     /**
-     * Удаляет файл из списка запущенных
-     * @param fileName файл
+     * Удаляет файл из списка запущенных.
+     *
+     * @param fileName Имя файла, который необходимо удалить из списка.
      */
     public static void removeFile(String fileName) {
         setFiles.remove(fileName);
     }
 
     /**
-     * Метод для чтения перенаправленного потока ввода на файл
+     * Читает строку из текущего потока ввода, перенаправленного на файл.
      *
+     * @return Прочитанная строка или сообщение об ошибке, если файл не найден.
      */
     @Override
     public String readLine() {
@@ -55,11 +75,13 @@ public class RunnerScriptManager implements InputHandler {
     }
 
     /**
-     * Метод для закрытия потока перенаправленного потока ввода
-     * @throws IOException
+     * Закрывает текущий поток чтения.
+     *
+     * @throws IOException Если возникает ошибка при закрытии потока.
      */
     @Override
     public void close() throws IOException {
+
         br.close();
     }
 }

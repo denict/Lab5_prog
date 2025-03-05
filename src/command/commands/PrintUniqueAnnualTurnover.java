@@ -7,17 +7,26 @@ import utility.ConsoleOutput;
 
 import java.util.HashSet;
 
+/**
+ * Команда "print_unique_annual_turnover".
+ * Описание команды: вывести уникальные значения поля annualTurnover всех элементов в коллекции
+ */
 public class PrintUniqueAnnualTurnover extends Command {
 
     private CollectionManager collectionManager;
     private ConsoleOutput consoleOutput;
 
     public PrintUniqueAnnualTurnover(CollectionManager collectionManager, ConsoleOutput consoleOutput) {
-        super("print_unique_annual_turnover", "Вывести уникальные значения поля annualTurnover всех элементов в коллекции", 0);
+        super("print_unique_annual_turnover", "вывести уникальные значения поля annualTurnover всех элементов в коллекции", 0, "");
         this.collectionManager = collectionManager;
         this.consoleOutput = consoleOutput;
     }
 
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     @Override
     public void execute(String[] args) {
         if (collectionManager.getCollectionSize() == 0) {
@@ -29,7 +38,7 @@ public class PrintUniqueAnnualTurnover extends Command {
         for (Organization org : collectionManager.getCollection()) {
             if (!uniqueAnnualTurnover.contains(org.getAnnualTurnover())) {
                 uniqueAnnualTurnover.add(org.getAnnualTurnover());
-                consoleOutput.print(org.getAnnualTurnover().toString() + " ");
+                consoleOutput.print(org.getAnnualTurnover().toString() + "; ");
             }
         }
     }

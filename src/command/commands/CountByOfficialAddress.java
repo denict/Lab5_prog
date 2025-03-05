@@ -5,16 +5,25 @@ import entity.Organization;
 import managers.CollectionManager;
 import utility.ConsoleOutput;
 
+/**
+ * Команда "count_by_official_address".
+ * Описание команды: вывести количество элементов, у которых значение поля officialAddress равно заданному.
+ */
 public class CountByOfficialAddress extends Command {
     private CollectionManager collectionManager;
     private ConsoleOutput consoleOutput;
 
     public CountByOfficialAddress(CollectionManager collectionManager, ConsoleOutput consoleOutput) {
-        super("count_by_official_address", "Вывести количество элементов, у которых значение поля officialAddress равно заданному", 2);
+        super("count_by_official_address", "вывести количество элементов, у которых значение поля officialAddress равно заданному", 2, "\"street\" \"zipCode\"");
         this.collectionManager = collectionManager;
         this.consoleOutput = consoleOutput;
     }
 
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     @Override
     public void execute(String[] args) {
 //        if (args.length != 2) {
@@ -26,14 +35,14 @@ public class CountByOfficialAddress extends Command {
             return;
         }
         int count = 0;
-            String street = args[0];
-            String zipCode = args[1];
-            for (Organization org : collectionManager.getCollection()) {
-                if (org.getOfficialAddress().getStreet().equals(street) && org.getOfficialAddress().getZipCode().equals(zipCode)) {
-                    count++;
-                }
+        String street = args[0];
+        String zipCode = args[1];
+        for (Organization org : collectionManager.getCollection()) {
+            if (org.getOfficialAddress().getStreet().equals(street) && org.getOfficialAddress().getZipCode().equals(zipCode)) {
+                count++;
             }
-            consoleOutput.println("Количество элементов, у которых значение поля officialAddress (\"street\" = " + street + "; \"zipCode\" = " + zipCode + ") равно " + count);
+        }
+        consoleOutput.println("Количество элементов, у которых значение поля officialAddress (\"street\" = " + street + "; \"zipCode\" = " + zipCode + ") равно " + count);
 
 
     }

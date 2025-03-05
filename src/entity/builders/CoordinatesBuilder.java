@@ -1,17 +1,31 @@
 package entity.builders;
 
 import entity.Coordinates;
-import utility.ConsoleOutput;
 import utility.InputHandler;
 import utility.OutputHandler;
 
 import java.util.function.Predicate;
 
+/**
+ * Класс для построения объекта {@link Coordinates} на основе пользовательского ввода.
+ */
 public class CoordinatesBuilder extends Builder<Coordinates> {
+
+    /**
+     * Конструктор для {@code CoordinatesBuilder}.
+     *
+     * @param consoleInput  обработчик ввода.
+     * @param consoleOutput обработчик вывода.
+     */
     public CoordinatesBuilder(InputHandler consoleInput, OutputHandler consoleOutput) {
         super(consoleInput, consoleOutput);
     }
 
+    /**
+     * Создает новый объект {@link Coordinates}, запрашивая у пользователя данные.
+     *
+     * @return новый объект {@link Coordinates}.
+     */
     @Override
     public Coordinates build() {
         Predicate<Long> validateX = (x) -> (true);

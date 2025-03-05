@@ -9,22 +9,28 @@ import utility.ConsoleInput;
 import utility.ConsoleOutput;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
+/**
+ * Команда "execute_script".
+ * Описание команды: считать и исполнить скрипт из указанного файла.
+ */
 public class ExecuteScript extends Command {
     private final CommandManager commandManager;
-    private final ConsoleInput consoleInput;
     private final ConsoleOutput consoleOutput;
     private final RunnerScriptManager runnerScriptManager;
 
-    public ExecuteScript(CommandManager commandManager, ConsoleInput consoleInput, ConsoleOutput consoleOutput, RunnerScriptManager runnerScriptManager) {
-        super("execute_script", "Cчитать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.", 1);
+    public ExecuteScript(CommandManager commandManager, ConsoleOutput consoleOutput, RunnerScriptManager runnerScriptManager) {
+        super("execute_script", "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.", 1, "\"file_script\"");
         this.commandManager = commandManager;
-        this.consoleInput = consoleInput;
         this.consoleOutput = consoleOutput;
         this.runnerScriptManager = runnerScriptManager;
     }
 
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     public void execute(String[] args) {
 //        if (args.length != 1) {
 //            consoleOutput.printError("Команда принимает один целочисленный аргумент - filename");
@@ -57,7 +63,7 @@ public class ExecuteScript extends Command {
 
 
             consoleOutput.println("Завершение исполнения файла " + args[0]);
-
+            
             RunnerScriptManager.removeFile(args[0]);
 
             ConsoleInput.setFileMode(false);

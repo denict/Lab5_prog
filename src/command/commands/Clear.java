@@ -4,16 +4,25 @@ import command.Command;
 import managers.CollectionManager;
 import utility.ConsoleOutput;
 
+/**
+ * Команда "clear".
+ * Описание команды: очистить коллекцию.
+ */
 public class Clear extends Command {
     private final CollectionManager collectionManager;
     private final ConsoleOutput consoleOutput;
 
     public Clear(CollectionManager collectionManager, ConsoleOutput consoleOutput) {
-        super("clear", "очистить коллекцию", 0);
+        super("clear", "очистить коллекцию", 0, "");
         this.collectionManager = collectionManager;
         this.consoleOutput = consoleOutput;
     }
 
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     @Override
     public void execute(String[] args) {
 //        if (args.length > 0) {

@@ -14,13 +14,20 @@ import utility.ConsoleOutput;
 
 
 /**
- * Менеджер для работы с файлами
+ * Класс для управления загрузкой и сохранением коллекции в файл.
+ * Реализует преобразование данных в CSV-формат и обратно.
  */
 public class DumpManager implements DumpReader, DumpWriter {
 
     private final File file;
     private final ConsoleOutput consoleOutput;
 
+    /**
+     * Создает экземпляр менеджера загрузки.
+     *
+     * @param file          Файл для сохранения и загрузки коллекции.
+     * @param consoleOutput Объект для вывода сообщений в консоль.
+     */
     public DumpManager(File file, ConsoleOutput consoleOutput) {
         this.file = file;
         this.consoleOutput = consoleOutput;
@@ -34,11 +41,10 @@ public class DumpManager implements DumpReader, DumpWriter {
 
     /**
      * Преобразует коллекцию в CSV-строку.
-     * 
-     * @param collection
-     * @return CSV-строка
+     *
+     * @param collection Коллекция, которую нужно преобразовать.
+     * @return CSV-строка, содержащая данные коллекции, либо {@code null} в случае ошибки.
      */
-
     @Override
     public String fromCollectionToCSV(Collection<Organization> collection) {
         try {
@@ -60,10 +66,9 @@ public class DumpManager implements DumpReader, DumpWriter {
 
     /**
      * Записывает коллекцию в файл.
-     * 
-     * @param collection коллекция
+     *
+     * @param collection Коллекция, которую нужно сохранить.
      */
-
     public void writeCollection(Collection<Organization> collection) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
                                                                                              // преобразует байты в
@@ -87,12 +92,11 @@ public class DumpManager implements DumpReader, DumpWriter {
         }
     }
 
-    /*
-     * Считывает CSV-строку в коллекцию.
-     * 
-     * @param CSV-строка типа String
-     * 
-     * @return коллекция
+    /**
+     * Преобразует CSV-строку в коллекцию объектов.
+     *
+     * @param s CSV-строка с данными.
+     * @return Коллекция объектов типа {@link Organization}, либо {@code null} в случае ошибки.
      */
     public Stack<Organization> fromCSVToCollection(String s) {
         try {
@@ -118,13 +122,11 @@ public class DumpManager implements DumpReader, DumpWriter {
         }
     }
 
-/**
- * Читает коллекцию из файла.
- *
- * @param collection Коллекция, в которую будут загружены элементы из файла
- */
-
-    // 
+    /**
+     * Читает коллекцию из файла и загружает её в {@link CollectionManager}.
+     *
+     * @param collection Менеджер коллекции, в который будут загружены данные.
+     */
     public void readCollection(CollectionManager collection) {
         if (file.getName() != null && !file.getName().isEmpty()) {
             try  (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) { // для проверки, есть ли слеюущая строка
@@ -155,6 +157,11 @@ public class DumpManager implements DumpReader, DumpWriter {
     }
 
 
+    /**
+     * Проверяет существование файла и наличие у него прав на чтение и запись.
+     *
+     * @return {@code true}, если файл существует и доступен для чтения и записи, иначе {@code false}.
+     */
     public boolean validate() {
         if (!file.exists()) {
             consoleOutput.printError("Файл, введённый в качестве параметра через переменную окружения не существует. Попробуйте поменять файл в переменной окружения.");

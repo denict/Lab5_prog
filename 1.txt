@@ -1,1 +1,16 @@
-execute_script 1.txt
+add
+Denis
+5
+2
+52
+TRUST
+belorusskaya 6
+zipcode2345
+add
+ivan
+2
+3
+20000
+
+bel
+2345

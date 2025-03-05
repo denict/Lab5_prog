@@ -4,12 +4,28 @@ import java.util.*;
 
 import entity.Organization;
 
+/**
+ * Класс для управления коллекцией {@code Organization}, включая добавление, удаление,
+ * обновление, сортировку элементов, а также для работы с их идентификаторами и сохранения коллекции.
+ */
 public  class CollectionManager {
+    /**
+     * Коллекция элементов типа {@code Organization}.
+     */
     private static Stack<Organization> collection = new Stack<Organization>();
-    private static Map<Integer, Organization> organizationMap = new HashMap<Integer, Organization>(); // для быстрого обращения// к элементу коллекции
+    /**
+     * Хеш-карта для быстрого доступа к элементам коллекции по их идентификаторам.
+     */
+    private static Map<Integer, Organization> organizationMap = new HashMap<Integer, Organization>();
     private Date initTime;
     private final DumpManager dumpManager;
     private Organization minElement = null;
+
+    /**
+     * Конструктор для создания объекта {@code CollectionManager}.
+     *
+     * @param dumpManager Менеджер для сохранения коллекции.
+     */
     public CollectionManager(DumpManager dumpManager) {
         this.initTime = new Date();
         this.dumpManager = dumpManager;
@@ -30,13 +46,21 @@ public  class CollectionManager {
         return Collections.max(organizationMap.keySet()) + 1;
     }
 
+    /**
+     * Очищает коллекцию {@code collection} и карту {@code organizationMap}.
+     */
     public void clearCollection() {
         collection.clear();
         organizationMap.clear();
 
     }
 
-
+    /**
+     * Проверяет, все ли идентификаторы уникальны в переданной коллекции.
+     *
+     * @param collection Коллекция для проверки.
+     * @return {@code true}, если все идентификаторы уникальны, иначе {@code false}.
+     */
     public static boolean allIdAreUnique(Collection<Organization> collection) {
         HashSet<Integer> ids = new HashSet<>();
         for (Organization org: collection) {
@@ -45,15 +69,33 @@ public  class CollectionManager {
         }
         return true;
     }
+
+    /**
+     * Проверяет, существует ли элемент с указанным ID в коллекции.
+     *
+     * @param id ID элемента.
+     * @return {@code true}, если элемент существует, иначе {@code false}.
+     */
     public static boolean hasIdInCollection(Integer id) {
         return organizationMap.containsKey(id);
     }
 
+    /**
+     * Получает минимальный элемент коллекции.
+     *
+     * @return Минимальный элемент коллекции.
+     */
     public Organization getMinElement() {
         return  minElement;
     }
 
-    public void updateMinElement(Organization org) {
+
+    /**
+     * Обновляет минимальный элемент коллекции.
+     *
+     * @param org Новый элемент для обновления минимального элемента.
+     */
+    public  void updateMinElement(Organization org) {
         if (minElement == null) {
             minElement = org;
             return;
@@ -71,6 +113,11 @@ public  class CollectionManager {
         return collection.getClass().getName();
     }
 
+    /**
+     * Возвращает размер коллекции.
+     *
+     * @return Размер коллекции.
+     */
     public int getCollectionSize() {
         return collection.size();
     }
@@ -132,6 +179,7 @@ public  class CollectionManager {
     public boolean add(Organization organization) {
         if (isContain(organization))
             return false;
+        updateMinElement(organization);
         organizationMap.put(organization.getId(), organization);
         collection.push(organization);
         updateSort();

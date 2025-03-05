@@ -7,16 +7,25 @@ import utility.ConsoleOutput;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Команда "history".
+ * Описание команды: выводит названия пяти последних выполненных команд.
+ */
 public class History extends Command {
     private CommandManager commandManager;
     private ConsoleOutput consoleOutput;
 
     public History(CommandManager commandManager, ConsoleOutput consoleOutput) {
-        super("history", "Выводит названия пяти последних выполненных команд", 0);
+        super("history", "выводит названия пяти последних выполненных команд", 0, "");
         this.commandManager = commandManager;
         this.consoleOutput = consoleOutput;
     }
 
+    /**
+     * Выполнение команды.
+     *
+     * @param args аргументы
+     */
     @Override
     public void execute(String[] args) {
 //        if (args.length != 0) {
